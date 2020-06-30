@@ -1,0 +1,34 @@
+---
+- name: Change default user's password.
+  user:
+    name: "{{ raspberry_pi_default_user }}"
+    password: "{{ raspberry_pi_default_user_password | password_hash('sha512') }}"
+    update_password: always
+  when: raspberry_pi_default_user_password | length > 0
+
+- name: Make sudo require a password for the default user.
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^{{ raspberry_pi_default_user }}"
+    line: "{{ raspberry_pi_default_user }} ALL=(ALL) PASSWD: ALL"
+    state: present
+    validate: "visudo -cf %s"
+  when: raspberry_pi_default_user_sudo_passwd | bool
+
+- name: Add new user.
+  user:
+    name: "{{ raspberry_pi_new_user }}"
+    shell: /bin/bash
+    group: "{{ raspberry_pi_new_user_primary_group }}"
+    groups: "{{ raspberry_pi_new_user_groups }}"
+    append: true
+    password: "{{ raspberry_pi_new_user_password | password_hash('sha512') }}"
+
+- name: Make sudo require a password for the new user.
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^{{ raspberry_pi_new_user }}"
+    line: "{{ raspberry_pi_new_user }} ALL=(ALL) PASSWD: ALL"
+    state: present
+    validate: "visudo -cf %s"
+  when: raspberry_pi_new_user_requires_passwd | bool
