@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include raspberry-pi"
-      include_role:
-        name: "raspberry-pi"
