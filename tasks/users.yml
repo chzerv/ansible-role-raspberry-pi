@@ -23,6 +23,7 @@
     groups: "{{ raspberry_pi_new_user_groups }}"
     append: true
     password: "{{ raspberry_pi_new_user_password | password_hash('sha512') }}"
+  when: raspberry_pi_new_user | length > 0
 
 - name: Make sudo require a password for the new user.
   lineinfile:
@@ -31,4 +32,4 @@
     line: "{{ raspberry_pi_new_user }} ALL=(ALL) PASSWD: ALL"
     state: present
     validate: "visudo -cf %s"
-  when: raspberry_pi_new_user_requires_passwd | bool
+  when: raspberry_pi_new_user_sudo_passwd | bool

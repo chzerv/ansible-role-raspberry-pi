@@ -85,7 +85,7 @@ raspberry_pi_hostname: "raspberrypi"
 - Whether the new user should be allowed to use `sudo` without a password or not.
 
   ```yaml
-  raspberry_pi_new_user_requires_passwd: true
+  raspberry_pi_new_user_sudo_passwd: true
   ```
 
 ## Dependencies

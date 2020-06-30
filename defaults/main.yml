@@ -14,4 +14,4 @@ raspberry_pi_new_user_password: []
 raspberry_pi_new_user_primary_group: users
 raspberry_pi_new_user_groups: []
 # raspberry_pi_new_user_groups: "adm,dialout,audio,video,plugdev,input,netdev,gpio,i2c,spi,sudo"
-raspberry_pi_new_user_requires_passwd: true
+raspberry_pi_new_user_sudo_passwd: true
