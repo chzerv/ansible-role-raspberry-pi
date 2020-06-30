@@ -1,2 +1,4 @@
 ---
-# tasks file for raspberry-pi
+- import_tasks: locale.yml
+
+- import_tasks: hostname.yml

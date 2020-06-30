@@ -1,2 +1,6 @@
 ---
-# defaults file for raspberry-pi
+raspberry_pi_locale: "en_US.UTF-8"
+
+raspberry_pi_timezone: "Europe/Athens"
+
+raspberry_pi_hostname: "raspberrypi"

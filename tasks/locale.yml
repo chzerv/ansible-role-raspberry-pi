@@ -1,0 +1,9 @@
+---
+- name: Configure locale.
+  locale_gen:
+    name: "{{ raspberry_pi_locale }}"
+    state: present
+
+- name: Configure timezone.
+  timezone:
+    name: "{{ raspberry_pi_timezone }}"
