@@ -15,3 +15,13 @@ raspberry_pi_new_user_primary_group: users
 raspberry_pi_new_user_groups: []
 # raspberry_pi_new_user_groups: "adm,dialout,audio,video,plugdev,input,netdev,gpio,i2c,spi,sudo"
 raspberry_pi_new_user_sudo_passwd: true
+
+# log2ram configuration
+raspberry_pi_enable_log2ram: true
+raspberry_pi_log2ram_size: "40M"
+raspberry_pi_log2ram_use_rsync: "false"
+raspberry_pi_log2ram_mail: "true"
+raspberry_pi_log2ram_path_disk: "/var/log"
+raspberry_pi_log2ram_zl2r: "false"
+raspberry_pi_log2ram_comp_alg: "lz4"
+raspberry_pi_log2ram_log_disk_size: "100M"

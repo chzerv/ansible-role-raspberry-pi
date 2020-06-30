@@ -1,0 +1,58 @@
+---
+- name: Create log2ram repository source.
+  template:
+    src: log2ram.list.j2
+    dest: /etc/apt/sources.list.d/log2ram.list
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Retrieve log2ram repository key.
+  apt_key:
+    url: https://azlux.fr/repo.gpg.key
+    state: present
+
+- name: Update repository cache after log2ram repository is enabled.
+  apt:
+    update_cache: true
+
+- name: Upgrade packages after log2ram repository is enabled.
+  apt:
+    upgrade: dist
+
+- name: Install log2ram.
+  apt:
+    name: log2ram
+    state: present
+
+- name: Customize log2ram.
+  lineinfile:
+    dest: /etc/log2ram.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    backup: true
+  with_items:
+    - regexp: "^SIZE"
+      line: "SIZE={{ raspberry_pi_log2ram_size }}"
+    - regexp: "^USE_RSYNC"
+      line: "USE_RSYNC={{ raspberry_pi_log2ram_use_rsync }}"
+    - regexp: "^MAIL"
+      line: "MAIL={{ raspberry_pi_log2ram_mail }}"
+    - regexp: "^PATH_DISK"
+      line: "PATH_DISK={{ raspberry_pi_log2ram_path_disk }}"
+    - regexp: "^ZL2R"
+      line: "ZL2R={{ raspberry_pi_log2ram_zl2r }}"
+    - regexp: "^COMP_ALG"
+      line: "COMP_ALG={{ raspberry_pi_log2ram_comp_alg }}"
+    - regexp: "^LOG_DISK_SIZE"
+      line: "LOG_DISK_SIZE={{ raspberry_pi_log2ram_log_disk_size }}"
+
+- name: Ensure log2ram is started and enabled at boot.
+  service:
+    name: log2ram
+    state: started
+    enabled: true
+
+- name: Reboot system after log2ram is installed.
+  reboot:

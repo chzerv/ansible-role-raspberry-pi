@@ -20,7 +20,7 @@ None.
 
 Available variables are listed below, along with the default values. For more information, see `defaults/main.yml`.
 
-#### Locale, timezone and hostname configuration
+### Locale, timezone and hostname configuration
 
 ```yaml
 raspberry_pi_locale: "en_US.UTF-8"
@@ -86,6 +86,31 @@ raspberry_pi_hostname: "raspberrypi"
 
   ```yaml
   raspberry_pi_new_user_sudo_passwd: true
+  ```
+
+### log2ram
+
+[log2ram](https://github.com/azlux/log2ram) helps extend the SD Card's life, by writing logs in the RAM instead of the SD Card.
+If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
+
+- Whether to enable log2ram or not.
+
+  ```yaml
+  raspberry_pi_enable_log2ram: true
+  ```
+
+- log2ram customization.
+
+  The default settings usually work just fine. However, in some occasions, especially when running Ubuntu, the error `/var/log.hdd/ doesn't exist! Can't sync.` might appear. This means that `/var/log` is larger than log2ram's default size (40M), and you have to use a bigger size.
+
+  ```yaml
+  raspberry_pi_log2ram_size: "40M"
+  raspberry_pi_log2ram_use_rsync: "false"
+  raspberry_pi_log2ram_mail: "true"
+  raspberry_pi_log2ram_path_disk: "/var/log"
+  raspberry_pi_log2ram_zl2r: "false"
+  raspberry_pi_log2ram_comp_alg: "lz4"
+  raspberry_pi_log2ram_log_disk_size: "100M"
   ```
 
 ## Dependencies
