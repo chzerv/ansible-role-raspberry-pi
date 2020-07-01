@@ -25,3 +25,8 @@ raspberry_pi_log2ram_path_disk: "/var/log"
 raspberry_pi_log2ram_zl2r: "false"
 raspberry_pi_log2ram_comp_alg: "lz4"
 raspberry_pi_log2ram_log_disk_size: "100M"
+
+raspberry_pi_packages:
+  - apt-transport-https
+  - curl
+  - git

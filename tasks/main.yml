@@ -3,6 +3,8 @@
 
 - import_tasks: hostname.yml
 
+- import_tasks: packages.yml
+
 - import_tasks: log2ram.yml
   when: raspberry_pi_enable_log2ram | bool
 
