@@ -19,4 +19,3 @@
     - raspberry_pi_new_user | length > 0
     - raspberry_pi_new_user_password | length > 0
     - raspberry_pi_new_user_groups | length > 0
-    - raspberry_pi_new_user_sudo_passwd | bool
