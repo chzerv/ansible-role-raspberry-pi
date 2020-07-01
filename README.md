@@ -133,7 +133,33 @@ A Raspberry Pi, with Raspbian or Ubuntu _already_ installed.
 
 ## Example Playbook
 
-TODO..
+```yaml
+- hosts: server
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: chr-zrv.raspberry-pi }
+```
+
+_Inside `vars/main.yml`_:
+
+```yaml
+raspberry_pi_default_user: "ubuntu"
+raspberry_pi_default_user_password: "foobar"
+raspberry_pi_default_user_sudo_passwd: true
+
+raspberry_pi_enable_log2ram: true
+raspberry_pi_log2ram_size: "50M"
+
+raspberry_pi_packages:
+  - apt-transport-https
+  - curl
+  - git
+  - lm-sensors
+  - vim
+  - cowsay
+```
 
 ## License
 
