@@ -7,7 +7,6 @@ The configuration includes:
 - Configure the locale/timezone/hostname.
 - Change the default password.
 - Create new users and set their passwords.
-- Configure sudoers.
 - Install extra packages.
 - Install, customize and enable [log2ram](https://github.com/azlux/log2ram).
 
@@ -85,12 +84,6 @@ If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
   raspberry_pi_default_user_requires_passwd: true
   ```
 
-- Whether the default user should be allowed to use `sudo` without a password or not. The default for Raspbian/Ubuntu is `false`.
-
-  ```yaml
-  raspberry_pi_default_user_sudo_passwd: true
-  ```
-
 #### New user configuration
 
 - The name of the new user to add.
@@ -119,12 +112,6 @@ If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
 
   ```yaml
   raspberry_pi_new_user_groups: []
-  ```
-
-- Whether the new user should be allowed to use `sudo` without a password or not.
-
-  ```yaml
-  raspberry_pi_new_user_sudo_passwd: true
   ```
 
 ## Dependencies

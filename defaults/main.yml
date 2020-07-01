@@ -7,14 +7,12 @@ raspberry_pi_hostname: "raspberrypi"
 # User configuration
 raspberry_pi_default_user: "pi"
 raspberry_pi_default_user_password: []
-raspberry_pi_default_user_sudo_passwd: true
 
 raspberry_pi_new_user: []
 raspberry_pi_new_user_password: []
 raspberry_pi_new_user_primary_group: users
 raspberry_pi_new_user_groups: []
 # raspberry_pi_new_user_groups: "adm,dialout,audio,video,plugdev,input,netdev,gpio,i2c,spi,sudo"
-raspberry_pi_new_user_sudo_passwd: true
 
 # log2ram configuration
 raspberry_pi_enable_log2ram: true
