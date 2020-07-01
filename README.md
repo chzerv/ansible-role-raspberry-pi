@@ -65,6 +65,8 @@ If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
   raspberry_pi_log2ram_log_disk_size: "100M"
   ```
 
+**NOTE**: The device WILL reboot after installing `log2ram`, as per the project's README.
+
 ### User configuration
 
 #### Default user configuration
