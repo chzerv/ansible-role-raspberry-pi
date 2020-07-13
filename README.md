@@ -12,7 +12,7 @@ The configuration includes:
 
 ## Requirements
 
-None.
+A Raspberry Pi, with Raspbian or Ubuntu _already_ installed.
 
 ## Role Variables
 
@@ -116,7 +116,7 @@ If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
 
 ## Dependencies
 
-A Raspberry Pi, with Raspbian or Ubuntu _already_ installed.
+None.
 
 ## Example Playbook
 
@@ -126,7 +126,7 @@ A Raspberry Pi, with Raspbian or Ubuntu _already_ installed.
     - vars/main.yml
 
   roles:
-    - { role: chr-zrv.raspberry-pi }
+    - { role: chr-zrv.ansible_role_raspberry-pi }
 ```
 
 _Inside `vars/main.yml`_:
