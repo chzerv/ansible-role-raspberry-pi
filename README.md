@@ -1,6 +1,6 @@
 # Ansible Role: Raspberry Pi
 
-This role configures a Raspberry Pi running Raspbian or Ubuntu (ARM).
+This role configures a Raspberry Pi running Raspbian (stretch, buster) or Ubuntu (19.04+). Although it's named "raspberry-pi", tt can be probably used to setup any Debian-based installation.
 
 The configuration includes:
 
