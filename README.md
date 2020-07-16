@@ -9,6 +9,7 @@ The configuration includes:
 - Create new users and set their passwords.
 - Install extra packages.
 - Install, customize and enable [log2ram](https://github.com/azlux/log2ram).
+- Setup a static IP.
 
 ## Requirements
 
@@ -18,101 +19,42 @@ A Raspberry Pi, with Raspbian or Ubuntu _already_ installed.
 
 Available variables are listed below, along with the default values. For more information, see `defaults/main.yml`.
 
-### Locale, timezone and hostname configuration
+|                Name                 |    Default Value    |                                            Description                                            |
+| :---------------------------------: | :-----------------: | :-----------------------------------------------------------------------------------------------: |
+|         raspberry_pi_locale         |     en_US.UTF-8     |         The locale to be used. Use `cat /etc/locale.gen` for a list of available locales.         |
+|        raspberry_pi_timezone        |    Europe/Athens    |     The timezone to be used. Use `ls /usr/share/zoneinfo` for a list of available timezones.      |
+|        raspberry_pi_hostname        |     raspberrypi     |                                    The hostname of the device.                                    |
+|      raspberry_pi_default_user      |          -          |                                 (Required )The default username.                                  |
+| raspberry_pi_default_user_password  |          -          |                     (Optional) A password for the default user defined above.                     |
+|        raspberry_pi_new_user        |          -          |                         (Optional) A new user to be added to the system.                          |
+|   raspberry_pi_new_user_password    |          -          |                          (Optional) Provide a password for the new user.                          |
+| raspberry_pi_new_user_primary_group |        users        |                                The primary group of the new user.                                 |
+|    raspberry_pi_new_user_groups     |          -          |        (Optional) A comma separated list of the groups that the new user will be part of.         |
+|     raspberry_pi_enable_log2ram     |        true         |                                 Whether to enable log2ram or not.                                 |
+|      raspberry_pi_log2ram_size      |         40M         | The ramdisk size. Needs a value > 40 in case of `/var/log.hdd/ doesn't exist! Can't sync.` error. |
+|   raspberry_pi_log2ram_use_rsync    |        false        |                              Whether to use `rsync` instead of `cp`.                              |
+|      raspberry_pi_log2ram_mail      |        false        |                     Disable the error system mail if there is not enough RAM.                     |
+|   raspberry_pi_log2ram_path_disk    |      /var/log       |                                     Where the logs are saved.                                     |
+|      raspberry_pi_log2ram_zl2r      |        false        |     Disable zram compatibility. zram must be enable on the Pi before you set this to `true`.      |
+|    raspberry_pi_log2ram_comp_alg    |         lz4         |                                    The compression algorithm.                                     |
+| raspberry_pi_log2ram_log_disk_size  |        100M         |                                     The max size of the logs.                                     |
+|        raspberry_pi_packages        | apt-transport-https |                          A list of additional packages to be installed.                           |
+|     raspberry_pi_set_static_ip      |        false        |                                Whether to set a static IP or not.                                 |
+|   raspberry_pi_static_ip_address    |          -          |                           (Required) The IP to be used as a static IP.                            |
+|   raspberry_pi_static_ip_gateway    |          -          |                                  (Required) The gateway address.                                  |
+|   raspberry_pi_static_ip_netmask    |    255.255.255.0    |                                      (Required) The netmask.                                      |
+|     raspberry_pi_static_ip_dns1     |          -          |                                 (Optional) Static DNS to be used.                                 |
+|     raspberry_pi_static_ip_dns2     |          -          |                                (Optional) Fallback DNS to be used.                                |
 
-```yaml
-raspberry_pi_locale: "en_US.UTF-8"
-raspberry_pi_timezone: "Europe/Athens"
-raspberry_pi_hostname: "raspberrypi"
-```
+### Notes
 
-### Packages
-
-- Install extra packages.
-
-  ```yaml
-  raspberry_pi_packages:
-    - apt-transport-https
-    - curl
-    - git
-  ```
-
-  **Note** that `apt-transport-https` is required, and therefore installed by default, because I have setup the template for the `log2ram` repository to use HTTPS.
-
-### log2ram
-
-[log2ram](https://github.com/azlux/log2ram) helps extend the SD Card's life, by writing logs in the RAM instead of the SD Card.
-If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
-
-- Whether to enable log2ram or not.
-
-  ```yaml
-  raspberry_pi_enable_log2ram: true
-  ```
-
-- log2ram customization.
-
-  The default settings usually work just fine. However, in some occasions, especially when running Ubuntu, the error `/var/log.hdd/ doesn't exist! Can't sync.` might appear. This means that `/var/log` is larger than log2ram's default size (40M), and you have to use a bigger size.
-
-  ```yaml
-  raspberry_pi_log2ram_size: "40M"
-  raspberry_pi_log2ram_use_rsync: "false"
-  raspberry_pi_log2ram_mail: "true"
-  raspberry_pi_log2ram_path_disk: "/var/log"
-  raspberry_pi_log2ram_zl2r: "false"
-  raspberry_pi_log2ram_comp_alg: "lz4"
-  raspberry_pi_log2ram_log_disk_size: "100M"
-  ```
-
-**NOTE**: The device WILL reboot after installing `log2ram`, as per the project's README.
-
-### User configuration
-
-#### Default user configuration
-
-- The default user. Default values are `pi`for Raspbian, and `ubuntu` for Ubuntu.
-
-  ```yaml
-  raspberry_pi_default_user: "pi"
-  ```
-
-- The password to use for the default user. Default passwords are `raspberry` for Raspbian and `ubuntu` for Ubuntu.
-
-  ```yaml
-  raspberry_pi_default_user: "pi"
-  raspberry_pi_default_user_password: []
-  raspberry_pi_default_user_requires_passwd: true
-  ```
-
-#### New user configuration
-
-- The name of the new user to add.
-
-  ```yaml
-  raspberry_pi_new_user: []
-  ```
-
-- The password for the new user.
-
-  ```yaml
-  raspberry_pi_new_user_password: []
-  ```
-
-- The primary group of the new user.
-
-  ```yaml
-  raspberry_pi_new_user_primary_group: users
-  ```
-
-- Additional groups to append to the new user.
-
-  - For Raspbian, the default groups are: `adm,dialout,audio,video,plugdev,input,netdev,gpio,i2c,spi,sudo`
-  - For Ubuntu, the default groups are:
-    `adm,dialout,cdrom,floppy,audio,video,plugdev,netdev,dip,lxd,sudo`
-
-  ```yaml
-  raspberry_pi_new_user_groups: []
-  ```
+- `apt-transport-https` is required, and therefore installed by default, because I have setup the template for the `log2ram` repository to use HTTPS.
+- [log2ram](https://github.com/azlux/log2ram) helps extend the SD Card's life, by writing logs in the RAM instead of the SD Card.
+  If you're using an SSD/HDD instead of a SD Card it's probably unnecessary.
+- The device WILL reboot after installing `log2ram`, as per the project's README.
+- For Raspbian, the default groups are: `adm,dialout,audio,video,plugdev,input,netdev,gpio,i2c,spi,sudo`
+- For Ubuntu, the default groups are: `adm,dialout,cdrom,floppy,audio,video,plugdev,netdev,dip,lxd,sudo`
+- For setting a static IP, the variables tagged as "required" are only required if `raspberry_pi_set_static_ip` is set to `true`.
 
 ## Dependencies
 
@@ -126,7 +68,7 @@ None.
     - vars/main.yml
 
   roles:
-    - { role: chr-zrv.ansible_role_raspberry-pi }
+    - { role: chzerv.ansible_role_raspberry-pi }
 ```
 
 _Inside `vars/main.yml`_:
