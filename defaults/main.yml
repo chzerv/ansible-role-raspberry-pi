@@ -5,7 +5,7 @@ raspberry_pi_timezone: "Europe/Athens"
 raspberry_pi_hostname: "raspberrypi"
 
 # User configuration
-raspberry_pi_default_user: "pi"
+raspberry_pi_default_user: []
 raspberry_pi_default_user_password: []
 
 raspberry_pi_new_user: []
@@ -28,3 +28,10 @@ raspberry_pi_packages:
   - apt-transport-https
   - curl
   - git
+
+raspberry_pi_set_static_ip: false
+raspberry_pi_static_ip_address: []
+raspberry_pi_static_ip_netmask: 255.255.255.0
+raspberry_pi_static_ip_gateway: []
+raspberry_pi_static_ip_dns1: []
+raspberry_pi_static_ip_dns2: []

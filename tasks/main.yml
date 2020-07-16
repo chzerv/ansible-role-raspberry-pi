@@ -8,4 +8,7 @@
 - import_tasks: log2ram.yml
   when: raspberry_pi_enable_log2ram | bool
 
+- import_tasks: static-ip.yml
+  when: raspberry_pi_set_static_ip | bool
+
 - import_tasks: users.yml

@@ -1,0 +1,36 @@
+---
+- name: Populate service facts.
+  service_facts:
+  register: service_state
+
+- name: Static IP | Setup a static IP (systemd-networkd).
+  template:
+    src: etc/systemd/network/20-static.network.j2
+    dest: /etc/systemd/network/20-static.network
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart systemd-networkd
+  when: ansible_facts.services['systemd-networkd.service'].state == "running"
+
+- name: Static IP | Setup a static IP (network/interfaces)
+  template:
+    src: etc/network/interfaces.d/static_ip.j2
+    dest: /etc/network/interfaces.d/static_ip
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - ansible_facts.services['systemd-networkd.service'].state != "running"
+    - ansible_distribution == "Debian"
+
+- name: Static IP | Setup a static DNS (network/interfaces)
+  lineinfile:
+    path: /etc/network/interfaces
+    regexp: "^dns-nameservers"
+    line: "dns-nameservers {{ raspberry_pi_static_ip_dns1 }} {{ raspberry_pi_static_ip_dns2 | default('omit') }}"
+    state: present
+  when:
+    - raspberry_pi_static_ip_dns1 is defined
+    - ansible_facts.services['systemd-networkd.service'].state != "running"
+    - ansible_distribution == "Debian"

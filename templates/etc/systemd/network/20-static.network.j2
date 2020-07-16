@@ -1,0 +1,12 @@
+[Match]
+Name={{ ansible_default_ipv4.interface }}
+
+[Network]
+Address={{ raspberry_pi_static_ip_address }}
+Gateway={{ raspberry_pi_static_ip_gateway }}
+{% if raspberry_pi_static_ip_dns1 is defined %}
+DNS={{ raspberry_pi_static_ip_dns1 }}
+{% if raspberry_pi_static_ip_dns2 is defined %}
+DNS={{ raspberry_pi_static_ip_dns2 }}
+{% endif %}
+{% endif %}

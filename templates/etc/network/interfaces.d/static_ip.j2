@@ -1,0 +1,4 @@
+iface {{ ansible_default_ipv4.interface }} inet static
+address {{ raspberry_pi_static_ip_address }}
+netmask {{ raspberry_pi_static_ip_netmask }}
+gateway {{ raspberry_pi_static_ip_gateway }}
