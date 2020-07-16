@@ -1,7 +1,7 @@
 ---
 - name: Create log2ram repository source.
   template:
-    src: log2ram.list.j2
+    src: etc/apt/sources.list.d/log2ram.list.j2
     dest: /etc/apt/sources.list.d/log2ram.list
     owner: root
     group: root
